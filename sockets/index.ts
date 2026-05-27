@@ -16,7 +16,7 @@ export function registerSocketHandlers(io: Server) {
     setupNameSettingSockets(io, socket);
 
     socket.on("disconnect", (reason) => {
-      console.log(`User disconnected: ${socket.id}. Reason: ${reason}`);
+      console.log(`user disconnected: ${socket.id}. Reason: ${reason}`);
       const user = users.get(socket.id);
       if (!user) return;
       if (user.roomId) {

@@ -17,8 +17,6 @@ export function setupRoomsSockets(io: Server, socket: Socket) {
     });
     user.roomId = roomId;
     socket.join(roomId);
-    console.log(`USER CREATED ROOM ${roomId}`);
-    console.log("ROOM:", rooms.get(roomId));
     socket.emit("room-created", roomId);
   });
 
@@ -33,7 +31,6 @@ export function setupRoomsSockets(io: Server, socket: Socket) {
     socket.join(room.id);
     socket.emit("room-joined", room);
     socket.to(room.id).emit("new-room-guest", user);
-    console.log(`USER JOINED ROOM ${roomId}`);
   });
 
   socket.on("leave-room", (roomId: string) => {
@@ -45,6 +42,5 @@ export function setupRoomsSockets(io: Server, socket: Socket) {
     socket.leave(room.id);
     socket.to(room.id).emit("room-left", user);
     if (room.users.length === 0) rooms.delete(room.id);
-    console.log(`USER ${user.socketId} LEFT ROOM ${room.id}`);
   });
 }
