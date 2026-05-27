@@ -27,7 +27,9 @@ export function setupRoomsSockets(io: Server, socket: Socket) {
     const user = users.get(socket.id);
     if (!room || !user) return;
     user.roomId = roomId;
-    room.users.push(user);
+    if (!room.users.some((u) => u.socketId === socket.id)) {
+      room.users.push(user);
+    }
     socket.join(room.id);
     socket.emit("room-joined", room);
     socket.to(room.id).emit("new-room-guest", user);

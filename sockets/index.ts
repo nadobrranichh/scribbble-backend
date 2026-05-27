@@ -22,6 +22,7 @@ export function registerSocketHandlers(io: Server) {
       if (user.roomId) {
         const room = rooms.get(user.roomId);
         if (!room) return users.delete(socket.id);
+        socket.to(room.id).emit("room-left", user);
         const i = room.users.findIndex((u) => u.socketId === socket.id);
         if (i !== -1) room.users.splice(i, 1);
         if (room.users.length === 0) rooms.delete(room.id);
