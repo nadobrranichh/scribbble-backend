@@ -11,7 +11,7 @@ export type Point = {
 export type Stroke = {
   points: Point[];
   color: string;
-  lineWidth: string;
+  lineWidth: number;
   userId: string;
 };
 
@@ -20,4 +20,6 @@ export type Room = {
   users: User[];
   baseImage: string | null;
   strokes: Stroke[];
+  totalPoints: number;
+  canvasDimensions: Point;
 };
