@@ -8,6 +8,10 @@ export function registerSocketHandlers(io: Server) {
     console.log(`user connected! ${socket.id}`);
     users.set(socket.id, { socketId: socket.id, roomId: null });
 
+    setupRoomsSockets(io, socket);
+
+    setupCanvasSockets(io, socket);
+
     socket.on("disconnect", (reason) => {
       console.log(`User disconnected: ${socket.id}. Reason: ${reason}`);
       const user = users.get(socket.id);
