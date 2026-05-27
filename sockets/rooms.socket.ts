@@ -40,6 +40,7 @@ export function setupRoomsSockets(io: Server, socket: Socket) {
     if (!room || !user) return;
     user.roomId = null;
     room.users.filter((u) => u.socketId !== user.socketId);
+    if (room.users.length === 0) rooms.delete(room.id);
     console.log(`USER ${user.socketId} LEFT ROOM ${room.id}`);
   });
 }
