@@ -30,8 +30,8 @@ export function setupRoomsSockets(io: Server, socket: Socket) {
     room.users.push(user);
     socket.join(room.id);
     socket.emit("room-joined", room);
+    socket.to(room.id).emit("new-room-guest", user);
     console.log(`USER JOINED ROOM ${roomId}`);
-    console.log("ROOM:", room);
   });
 
   socket.on("leave-room", (roomId: string) => {
@@ -39,7 +39,9 @@ export function setupRoomsSockets(io: Server, socket: Socket) {
     const user = users.get(socket.id);
     if (!room || !user) return;
     user.roomId = null;
-    room.users.filter((u) => u.socketId !== user.socketId);
+    room.users = room.users.filter((u) => u.socketId !== user.socketId);
+    socket.leave(room.id);
+    socket.to(room.id).emit("room-left", user);
     if (room.users.length === 0) rooms.delete(room.id);
     console.log(`USER ${user.socketId} LEFT ROOM ${room.id}`);
   });
