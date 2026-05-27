@@ -4,6 +4,7 @@ import { Server } from "socket.io";
 import dotenv from "dotenv";
 import cors from "cors";
 import { roomsRouter } from "./routes/rooms.routes.js";
+import { registerSocketHandlers } from "./sockets/index.js";
 dotenv.config();
 
 const app = express();
@@ -18,6 +19,8 @@ export const io = new Server(server, {
     methods: ["GET", "POST"],
   },
 });
+
+registerSocketHandlers(io);
 
 app.get("/", (_, res) => res.send("scribbble server says hello!"));
 
