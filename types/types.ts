@@ -1,6 +1,7 @@
 export type User = {
   socketId: string;
   roomId: string | null;
+  name: string | null;
 };
 
 export type Point = {
