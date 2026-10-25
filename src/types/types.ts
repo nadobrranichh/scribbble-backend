@@ -1,0 +1,26 @@
+export type User = {
+  socketId: string;
+  roomId: string | null;
+  name: string | null;
+};
+
+export type Point = {
+  x: number;
+  y: number;
+};
+
+export type Stroke = {
+  points: Point[];
+  color: string;
+  lineWidth: number;
+  userId: string;
+};
+
+export type Room = {
+  id: string;
+  users: User[];
+  baseImage: string | null;
+  strokes: Stroke[];
+  totalPoints: number;
+  canvasDimensions: Point;
+};
