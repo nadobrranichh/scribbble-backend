@@ -6,7 +6,6 @@ import { setupNameSettingSockets } from "./names.socket.js";
 
 export function registerSocketHandlers(io: Server) {
   io.on("connection", (socket) => {
-    console.log(`user connected! ${socket.id}`);
     users.set(socket.id, { socketId: socket.id, roomId: null, name: null });
 
     setupRoomsSockets(io, socket);
@@ -16,7 +15,6 @@ export function registerSocketHandlers(io: Server) {
     setupNameSettingSockets(io, socket);
 
     socket.on("disconnect", (reason) => {
-      console.log(`user disconnected: ${socket.id}. Reason: ${reason}`);
       const user = users.get(socket.id);
       if (!user) return;
       if (user.roomId) {

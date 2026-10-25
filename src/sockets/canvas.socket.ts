@@ -32,6 +32,5 @@ export function setupCanvasSockets(io: Server, socket: Socket) {
     const room = rooms.get(roomId);
     if (!room) return;
     room.baseImage = image;
-    console.log(`ROOM ${roomId}'S IMAGE GOT FLATTENED`);
   });
 }
